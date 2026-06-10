@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:    #0a0d14;
+  --deep:   #0f1520;
+  --panel:  #141b2a;
+  --rim:    #1e2d42;
+  --muted:  #4a6380;
+  --sub:    #8ba0b8;
+  --body:   #c8d8e8;
+  --white:  #f0f6ff;
+  --sky:    #38bdf8;
+  --teal:   #06b6d4;
+  --violet: #818cf8;
+  --fuchsia:#e879f9;
+  --amber:  #fbbf24;
+  --green:  #34d399;
+  --red:    #f87171;
+  --grad:   linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #e879f9 100%);
+  --grad-btn: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--ink);
+  color: var(--body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--deep); }
+::-webkit-scrollbar-thumb { background: var(--rim); border-radius: 3px; }
+
+::selection { background: #38bdf840; color: var(--white); }
+
+/* ── Shared utilities ── */
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--rim);
+  border-radius: 16px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background: var(--grad-btn);
+  border: none;
+  cursor: pointer;
+  transition: opacity .2s, transform .2s;
+}
+.btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--body);
+  background: transparent;
+  border: 1px solid var(--rim);
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.btn-ghost:hover { background: var(--panel); border-color: var(--muted); }
+
+.input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--deep);
+  border: 1px solid var(--rim);
+  color: var(--white);
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+.input::placeholder { color: var(--muted); }
+.input:focus { border-color: var(--sky); }
+
+/* ── Glow blobs ── */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+/* ── Noise overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: .4;
+}
+
+/* ── Page transition ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp .5s ease both; }
+
+/* ── Spinner ── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid rgba(255,255,255,.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+/* ── Tag pill ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  border: 1px solid var(--rim);
+  color: var(--sky);
+  background: rgba(56,189,248,.08);
+}
+
+/* ── Section label ── */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--sky);
+}
+
+/* ── Timeline ── */
+.timeline-line {
+  position: absolute;
+  left: 22px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--sky), var(--violet), var(--fuchsia));
+}
